@@ -7,7 +7,7 @@ const app = express();
 const PORT = 3002;
 
 // MongoDB Connection
-const uri = "mongodb+srv://emily:0505Maor2005@et-clone.ivjgopf.mongodb.net/BankDB?retryWrites=true&w=majority";
+const uri = "mongodb+srv://emily:0505Maor2005@et-clone-live.vapnp4e.mongodb.net/?retryWrites=true&w=majority&appName=ET-Clone-Live";
 const client = new MongoClient(uri);
 let db;
 
