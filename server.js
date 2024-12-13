@@ -4,11 +4,12 @@ const cors = require("cors");
 const { MongoClient } = require("mongodb");
 
 const app = express();
-const PORT = 3002;
 
-// MongoDB Connection
-const uri = "mongodb+srv://emily:0505Maor2005@et-clone-live.vapnp4e.mongodb.net/?retryWrites=true&w=majority&appName=ET-Clone-Live";
-const client = new MongoClient(uri);
+// Use environment variables for sensitive information
+const PORT = process.env.PORT || 3002; // Use the Render-provided port or default to 3002
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://emily:0505Maor2005@et-clone-live.vapnp4e.mongodb.net/?retryWrites=true&w=majority&appName=ET-Clone-Live";
+
+const client = new MongoClient(MONGO_URI);
 let db;
 
 async function connectToDatabase() {
@@ -27,6 +28,11 @@ connectToDatabase();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors()); // Enable CORS
+
+// Root route to serve a message (optional)
+app.get("/", (req, res) => {
+    res.send("Welcome to the ET Clone API");
+});
 
 // API Endpoint to Store User Data
 app.post("/store-user", async (req, res) => {
