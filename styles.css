@@ -1,0 +1,334 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    background-color: #272524;
+}
+
+header .logo {
+    width: 100px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+header .header-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* Add spacing between the text elements */
+    color: white;
+    margin-left: auto; /* Push the text to the right side */
+    margin-right: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+header .header-text p {
+    margin: 0;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+header .header-text p:hover {
+    text-decoration: underline; /* Optional: Add hover effect */
+}
+
+.trans-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.trans-info-content {
+    flex: 1;
+    max-width: 70%;
+}
+
+.trans-info-content h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.trans-info-content .amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #0077c8;
+}
+
+.trans-info-content p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.expiry-info {
+    text-align: right;
+    flex-shrink: 0;
+    max-width: 30%;
+}
+
+.expiry-info p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #777;
+}
+
+.bank-icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 20px; /* Adds padding inside the section */
+    background-color: #f2f2f2; /* Light grey background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+}
+
+.bank-icons img {
+    width: 100px; /* Set a consistent width */
+    height: 100px; /* Set a consistent height */
+    display: block;
+    margin: 0 auto;
+    object-fit: contain; /* Ensures the entire image fits within the box */
+    background-color: #fff; /* Optional: Add a background color for better visibility */
+    border-radius: 8px; /* Optional: Adds rounded corners for styling */
+    overflow: hidden;
+    padding: 5px; /* Optional: Adds some padding around the image for better spacing */
+}
+
+
+.or-divider {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.dropdown-section {
+    margin-top: 20px;
+}
+
+.dropdown-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.dropdown-section select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    background: #ffcc00;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #e6b800;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Modal Background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Content */
+.modal-content {
+    background: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content form label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.modal-content form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.modal-content form button {
+    padding: 10px 20px;
+    background: #0077c8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content form button:hover {
+    background-color: #005fa3;
+}
+
+/* Close Button */
+.close-modal {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-modal:hover {
+    background-color: #999;
+}
+
+.credit-card-section {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.credit-card-section h1 {
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.credit-card-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.credit-card-section label {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.credit-card-section input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.expiration-and-cvv {
+    display: flex;
+    gap: 30px;
+}
+
+.expiration-and-cvv div {
+    flex: 1;
+}
+
+.submit-button {
+    width: 100%;
+    background: #ffcc00;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.submit-button:hover {
+    background: #e6b800;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}

