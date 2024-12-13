@@ -6,7 +6,7 @@ const { MongoClient } = require("mongodb");
 
 const app = express();
 const PORT = process.env.PORT || 3002; // Use Render's provided port or fallback to 3002
-const MONGO_URI = process.env.MONGO_URI || "your_mongodb_connection_string";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://emily:0505Maor2005@et-clone-live.vapnp4e.mongodb.net/?retryWrites=true&w=majority&appName=ET-Clone-Live";
 
 const client = new MongoClient(MONGO_URI);
 let db;
