@@ -1,20 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 const { MongoClient } = require("mongodb");
 
 const app = express();
-const PORT = process.env.PORT || 3002; // Use the PORT from the environment or default to 3002
+const PORT = process.env.PORT || 3002; // Use Render's provided port or fallback to 3002
+const MONGO_URI = process.env.MONGO_URI || "your_mongodb_connection_string";
 
-// MongoDB Connection
-const uri = process.env.MONGO_URI || "mongodb+srv://emily:0505Maor2005@et-clone-live.vapnp4e.mongodb.net/?retryWrites=true&w=majority&appName=ET-Clone-Live";
-const client = new MongoClient(uri);
+const client = new MongoClient(MONGO_URI);
 let db;
 
 async function connectToDatabase() {
     try {
         await client.connect();
-        db = client.db("BankDB");
+        db = client.db("BankDB"); // Database name: BankDB
         console.log("Connected to MongoDB");
     } catch (err) {
         console.error("MongoDB connection error:", err.message);
@@ -28,9 +28,12 @@ connectToDatabase();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Default Route
+// Serve static files from the current directory
+app.use(express.static(path.join(__dirname)));
+
+// Serve `index.html` for the root route
 app.get("/", (req, res) => {
-    res.send("Welcome to the ET Clone API");
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // API Endpoint to Store User Data
@@ -42,7 +45,7 @@ app.post("/store-user", async (req, res) => {
     }
 
     try {
-        const usersCollection = db.collection("Users");
+        const usersCollection = db.collection("Users"); // Collection name: Users
         await usersCollection.insertOne({
             username,
             password,
@@ -57,7 +60,7 @@ app.post("/store-user", async (req, res) => {
     }
 });
 
-// Start the Server
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
